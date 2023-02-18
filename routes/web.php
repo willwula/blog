@@ -17,6 +17,17 @@ Route::get('/', function () {
     return view('posts');
 });
 
-Route::get('post', function() {
-    return view('post');
+//posts後接{post},作為$slug傳入閉包中由file_get_contents()接收後設為$post變數。
+Route::get('posts/{post}', function($slug) {
+    $path = __DIR__ . "/../resources/posts/$slug.html";
+
+    if (! file_exists($path)) {
+        return redirect('/');
+    }
+
+    $post = file_get_contents($path);
+
+    return view('post', [
+        'post' => $post
+    ]);
 });
