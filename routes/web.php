@@ -18,16 +18,13 @@ Route::get('/', function () {
 });
 
 //posts後接{post},作為$slug傳入閉包中由file_get_contents()接收後設為$post變數。
-Route::get('posts/{post}', function($slug) {
-    $path = __DIR__ . "/../resources/posts/$slug.html";
-
-    if (! file_exists($path)) {
+Route::get('posts/{post}', function ($slug) {
+    if (! file_exists(__DIR__ . "/../resources/posts/{$slug}.html")) {
         return redirect('/');
     }
 
-    $post = file_get_contents($path);
+    $post = cache()->remember("post.{$slug}", 1200, fn() => file_get_contents($path));
 
-    return view('post', [
-        'post' => $post
-    ]);
-});
+    return view('post', ['post' => $post]);
+})->where('post', '[A-z_\-]+');
+//whereAlpha('post')
