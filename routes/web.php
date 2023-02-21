@@ -1,7 +1,8 @@
 <?php
 use App\Models\Post;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
-
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    //    ddd($posts[0]->getContents());
+    //    $posts = array_map(function ($file) {
+//        $document = YamlFrontMatter::parseFile($file);
+//
+//        return new Post(
+//            $document->title,
+//            $document->excerpt,
+//            $document->date,
+//            $document->body(),
+//            $document->slug
+//        );
+//    }, $files);
+
+//    ddd($posts[0]->body);
+//        $document = YamlFrontMatter::parseFile(
+//            resource_path('posts/my-fourth-post.html')
+//        );
+//        ddd($document->matter('title'));
     return view('posts', [
         'posts' => Post::all()
     ]);
@@ -23,10 +40,8 @@ Route::get('/', function () {
 //posts後接{post},作為$slug傳入閉包中由file_get_contents()接收後設為$post變數。
 Route::get('posts/{post}', function ($slug) {
     //Find a post by its slug and pass it to a view called "post"
-    $post = Post::find($slug);
-
     return view('post', [
-        'post' => $post
+        'post' => Post::find($slug)
     ]);
 
 })->where('post', '[A-z_\-]+');
