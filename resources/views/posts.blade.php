@@ -1,11 +1,9 @@
-@extends('components.layout')
-
-@section('content')
+<x-layout>
     @foreach ($posts as $post )
         <article>
             <h1>
                 <a href="/posts/{{  $post->id }}">
-                    {{ $post->title }}
+                    {!! $post->title !!}
                 </a>
             </h1>
             <div>
@@ -13,4 +11,4 @@
             </div>
         </article>
     @endforeach
-@endsection
+</x-layout>
