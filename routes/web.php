@@ -38,10 +38,10 @@ Route::get('/', function () {
 });
 
 //posts後接{post},作為$slug傳入閉包中由file_get_contents()接收後設為$post變數。
-Route::get('posts/{post}', function ($slug) {
-    //Find a post by its slug and pass it to a view called "post"
+Route::get('posts/{post:slug}', function (Post $post) {
+    // Post::where('slug', $post)->post()->FindOrFail()
     return view('post', [
-        'post' => Post::findOrFail($slug)
+        'post' => $post
     ]);
 });
 //whereAlpha('post')
