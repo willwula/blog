@@ -15,45 +15,52 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::truncate();
-        Category::truncate();
-        Post::truncate();
-
-
-         $user = User::factory()->create();
-
-         $personal = Category::create([
-             'name' => 'Personal',
-             'slug' => 'personal'
-         ]);
-
-         $family = Category::create([
-            'name' => 'Family',
-            'slug' => 'family'
-         ]);
-
-        $work = Category::create([
-            'name' => 'Work',
-            'slug' => 'work'
+        $user = User::factory()->create([
+            'name' => 'Will Wu'
         ]);
 
-        Post::create([
+        Post::factory(5)->create([
             'user_id' => $user->id,
-            'category_id' => $family->id,
-            'title' => 'My Family Post',
-            'slug' => 'my-family-post',
-            'excerpt' => '<p>家族貼文</p>',
-            'body' => '<p>家族貼文測試：dfjioashjdofhja;lwiejfioawujhdifoj ijiaowsdfjioq;wuercjqiop uioafsdkfjakl;sdfuiowe asjhdklfasdklfj niwertesult sjdlfkjawoerjl; resulp jfklasdjrtlk;fghsdthwerthg aergqethaerfgwert</p>'
         ]);
 
-        Post::create([
-            'user_id' => $user->id,
-            'category_id' => $work->id,
-            'title' => 'My Work Post',
-            'slug' => 'my-work-post',
-            'excerpt' => '<p>工作貼文</p>',
-            'body' => '<p>工作貼文測試：sjdkfljas;ldkjfopij;laskjerf;klawjerklfja;lskuiouver sjdfl;kjas;ldkfj;lqkavjwl;kerjv;alkwujefkl;ajsdcvioausdofghjqer jvaslk;djfa;lskdjfgqweoritjgqioawerjga;klsdfg etghwerthg</p>'
-        ]);
+        //以factory方式取代
+//        User::truncate();
+//        Category::truncate();
+//        Post::truncate();
+//
+//         $user = User::factory()->create();
+//         $personal = Category::create([
+//             'name' => 'Personal',
+//             'slug' => 'personal'
+//         ]);
+//
+//         $family = Category::create([
+//            'name' => 'Family',
+//            'slug' => 'family'
+//         ]);
+//
+//        $work = Category::create([
+//            'name' => 'Work',
+//            'slug' => 'work'
+//        ]);
+//
+//        Post::create([
+//            'user_id' => $user->id,
+//            'category_id' => $family->id,
+//            'title' => 'My Family Post',
+//            'slug' => 'my-family-post',
+//            'excerpt' => '<p>家族貼文</p>',
+//            'body' => '<p>家族貼文測試：dfjioashjdofhja;lwiejfioawujhdifoj ijiaowsdfjioq;wuercjqiop uioafsdkfjakl;sdfuiowe asjhdklfasdklfj niwertesult sjdlfkjawoerjl; resulp jfklasdjrtlk;fghsdthwerthg aergqethaerfgwert</p>'
+//        ]);
+//
+//        Post::create([
+//            'user_id' => $user->id,
+//            'category_id' => $work->id,
+//            'title' => 'My Work Post',
+//            'slug' => 'my-work-post',
+//            'excerpt' => '<p>工作貼文</p>',
+//            'body' => '<p>工作貼文測試：sjdkfljas;ldkjfopij;laskjerf;klawjerklfja;lskuiouver sjdfl;kjas;ldkfj;lqkavjwl;kerjv;alkwujefkl;ajsdcvioausdofghjqer jvaslk;djfa;lskdjfgqweoritjgqioawerjga;klsdfg etghwerthg</p>'
+//        ]);
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
