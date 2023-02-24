@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static truncate()
+ * @method static latest(string $string)
  */
 class Post extends Model
 {
@@ -19,8 +20,8 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function user() {
-        return $this->belongsTo(User::class);
+    public function author() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 //    public function getRouteKeyName()
 //    {

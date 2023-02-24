@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
@@ -35,7 +36,7 @@ Route::get('/', function () {
 //        );
 //        ddd($document->matter('title'));
     return view('posts', [
-        'posts' => Post::with('category')->get()
+        'posts' => Post::latest()->with(['category', 'author'])->get()
     ]);
 });
 
@@ -51,4 +52,10 @@ Route::get('/categories/{category:slug}',function (Category $category) {
     return view('posts', [
         'posts' => $category->posts
         ]);
+});
+
+Route::get('/authors/{author:username}',function (User $author) {
+    return view('posts', [
+        'posts' => $author->posts
+    ]);
 });
