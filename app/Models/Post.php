@@ -14,6 +14,7 @@ class Post extends Model
     use HasFactory;
 
     protected $guarded = [];
+    //解除模型的批量填充限制
 
     protected $with = ['category', 'author'];
     public function category() {
