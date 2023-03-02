@@ -39,7 +39,7 @@ Route::get('/', function () {
         'posts' => Post::latest()->with(['category', 'author'])->get(),
         'categories' => Category::All()
     ]);
-});
+})->name('home');
 
 //posts後接{post},作為$slug傳入閉包中由file_get_contents()接收後設為$post變數。
 Route::get('posts/{post:slug}', function (Post $post) {
@@ -55,7 +55,7 @@ Route::get('/categories/{category:slug}',function (Category $category) {
         'currentCategory' => $category,
         'categories' => Category::all()
         ]);
-});
+})->name('category');
 
 Route::get('/authors/{author:username}',function (User $author) {
     return view('posts', [
