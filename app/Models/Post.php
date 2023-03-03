@@ -17,6 +17,14 @@ class Post extends Model
     //解除模型的批量填充限制
 
     protected $with = ['category', 'author'];
+
+    public function scopeFilter($query, array $filters) {
+        $query->when($filter['search'] ?? false, fn ($query, $search) => $query
+                ->where('title', 'like', '%' . $search . '%')
+                ->orWhere('body', 'like', '%' . $search . '%'));
+    }
+
+
     public function category() {
         //hasOne, hasMany, belongsTo, belongsToMany
         return $this->belongsTo(Category::class);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -17,43 +18,9 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-Route::get('/', function () {
-    $posts = Post::latest();
+Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
-    if (request('search')) {
-        $posts
-            ->where('title', 'like', '%' .request('search') . '%')
-            ->orWhere('body', 'like', '%' .request('search') . '%');
-    }
-    //    $posts = array_map(function ($file) {
-//        $document = YamlFrontMatter::parseFile($file);
-//
-//        return new Post(
-//            $document->title,
-//            $document->excerpt,
-//            $document->date,
-//            $document->body(),
-//            $document->slug
-//        );
-//    }, $files);
-//    ddd($posts[0]->body);
-//        $document = YamlFrontMatter::parseFile(
-//            resource_path('posts/my-fourth-post.html')
-//        );
-//        ddd($document->matter('title'));
-    return view('posts', [
-        'posts' => $posts->get(),
-        'categories' => Category::All()
-    ]);
-})->name('home');
-
-//posts後接{post},作為$slug傳入閉包中由file_get_contents()接收後設為$post變數。
-Route::get('posts/{post:slug}', function (Post $post) {
-    // Post::where('slug', $post)->post()->FindOrFail()
-    return view('post', [
-        'post' => $post
-    ]);
-});
 //whereAlpha('post')
 Route::get('/categories/{category:slug}',function (Category $category) {
     return view('posts', [
