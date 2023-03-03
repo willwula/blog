@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static truncate()
+ * @method static firstWhere(string $string, mixed $request)
  */
 class Category extends Model
 {
