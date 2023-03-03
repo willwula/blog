@@ -18,6 +18,13 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 */
 
 Route::get('/', function () {
+    $posts = Post::latest();
+
+    if (request('search')) {
+        $posts
+            ->where('title', 'like', '%' .request('search') . '%')
+            ->orWhere('body', 'like', '%' .request('search') . '%');
+    }
     //    $posts = array_map(function ($file) {
 //        $document = YamlFrontMatter::parseFile($file);
 //
@@ -29,14 +36,13 @@ Route::get('/', function () {
 //            $document->slug
 //        );
 //    }, $files);
-
 //    ddd($posts[0]->body);
 //        $document = YamlFrontMatter::parseFile(
 //            resource_path('posts/my-fourth-post.html')
 //        );
 //        ddd($document->matter('title'));
     return view('posts', [
-        'posts' => Post::latest()->with(['category', 'author'])->get(),
+        'posts' => $posts->get(),
         'categories' => Category::All()
     ]);
 })->name('home');
